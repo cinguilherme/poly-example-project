@@ -1,7 +1,22 @@
-{:aliases  {:dev {:extra-paths ["development/src"]
-                  :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}}}
+{:aliases  {:dev {:extra-paths ["development/src"
+                                "components/user/src"
+                                "components/user/resources"
+                                "components/logger/src"
+                                "components/logger/resources"
+                                "bases/cli/src"
+                                "bases/cli/resources"]
+                  :extra-deps {org.clojure/clojure {:mvn/version "1.11.1"}
+                               poly/user {:local/root "components/user"}
+                               poly/logger {:local/root "components/logger"}
+                               poly/cli {:local/root "bases/cli"}}}
 
-            :test {:extra-paths []}
+            :test {:extra-paths ["components/user/test"
+                                 "components/logger/test"
+                                 "bases/cli/test"]}
+
+            :build {:deps {io.github.seancorfield/build-clj {:git/tag "v0.5.2" :git/sha "8f75b81088b9809ec3cfc34e951036b3975007fd"}}
+                    :paths ["build/resources"]
+                    :ns-default build}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polyfy/polylith
